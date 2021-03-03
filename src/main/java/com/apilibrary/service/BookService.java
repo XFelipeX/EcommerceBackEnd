@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apilibrary.model.Book;
-import com.apilibrary.repository.BookRepositoryCustom;
+import com.apilibrary.repository.BookRepository;
 
 @Service
 public class BookService {
 	@Autowired
-	private BookRepositoryCustom repositoryImp;
+	private BookRepository repository;
 
 	public Book saveBook(Book book) {
-		return repositoryImp.save(book);
+		return repository.save(book);
 	}
 
 	public List<Book> listBooks() {
-		return repositoryImp.findAll();
+		return repository.findAll();
 	}
 
 	public Book getBookById(int id) {
-		return repositoryImp.findById(id).orElse(null);
+		return repository.findById(id).orElse(null);
 	}
 
 //	public Book getBookByName(String nameBook) {
@@ -30,12 +30,12 @@ public class BookService {
 //	}
 
 	public String deleteBook(int id) {
-		repositoryImp.deleteById(id);
+		repository.deleteById(id);
 		return "book deleted";
 	}
 
 	public Book updateBook(Book book) {
-		Book existingBook = repositoryImp.findById(book.getId()).orElse(null);
+		Book existingBook = repository.findById(book.getId()).orElse(null);
 		existingBook.setNameBook(book.getNameBook());
 		existingBook.setDescription(book.getDescription());
 		existingBook.setAmount(book.getAmount());
@@ -48,6 +48,6 @@ public class BookService {
 		existingBook.setPublishCompanyId(book.getPublishCompanyId());
 		existingBook.setPublishDate(book.getPublishDate());
 
-		return repositoryImp.save(existingBook);
+		return repository.save(existingBook);
 	}
 }

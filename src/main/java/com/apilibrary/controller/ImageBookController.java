@@ -1,5 +1,6 @@
 package com.apilibrary.controller;
 
+import java.util.Base64;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,79 +17,78 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apilibrary.model.Book;
+import com.apilibrary.model.ImageBook;
 import com.apilibrary.response.SuccessMessage;
-import com.apilibrary.service.BookService;
+import com.apilibrary.service.ImageBookService;
 
 import javassist.NotFoundException;
 
 @CrossOrigin
 @RestController
-public class BookController {
-
+public class ImageBookController {
 	@Autowired
-	private BookService service;
+	private ImageBookService service;
 
-	@PostMapping("/book")
-	public ResponseEntity<Object> addBook(@RequestBody @Valid Book book) {
-		Book bk = service.saveBook(book);
+	@PostMapping("/image_book")
+	public ResponseEntity<Object> addBook(@RequestBody @Valid ImageBook imageBook) {
+		imageBook.setImg(Base64.getDecoder().decode(imageBook.getBase().getBytes()));
+		imageBook.setBase("");
 
-		if (bk == null) {
+		ImageBook obj = service.saveImageBook(imageBook);
+
+		if (obj == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 		}
 
-		SuccessMessage response = new SuccessMessage(bk);
+		SuccessMessage response = new SuccessMessage(obj);
 
 		return new ResponseEntity<Object>(response, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/book")
+	@GetMapping("/image_book")
 	public ResponseEntity<Object> listBooks() {
-		List<Book> books = service.listBooks();
+		List<ImageBook> listImageBook = service.listImageBook();
 
-		if (books == null) {
+		if (listImageBook == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 		}
 
-		SuccessMessage response = new SuccessMessage(books);
+		SuccessMessage response = new SuccessMessage(listImageBook);
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/book/{id}")
-	public ResponseEntity<Object> getBook(@PathVariable int id) throws NotFoundException {
-		Book book = service.getBookById(id);
+	@GetMapping("/image_book/{id}")
+	public ResponseEntity<Object> getImageBook(@PathVariable int id) throws NotFoundException {
+		ImageBook imageBook = service.getImageBookById(id);
 
-		if (book == null) {
+		if (imageBook == null) {
 			throw new NotFoundException("Not found for id " + id);
 		}
 
-		SuccessMessage response = new SuccessMessage(book);
+		SuccessMessage response = new SuccessMessage(imageBook);
 
+		imageBook.setBase(new String(Base64.getEncoder().encode(imageBook.getImg())));
+		imageBook.setImg(null);
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-//	@GetMapping("/book/{name}")
-//	public Book findBookByName(@PathVariable String nameBook) {
-//		return service.getBookByName(nameBook);
-//	}
+	@PutMapping("/image_book")
+	public ResponseEntity<Object> updateImageBook(@RequestBody ImageBook imgBook) {
+		ImageBook imageBook = service.updateImageBook(imgBook);
 
-	@PutMapping("/book")
-	public ResponseEntity<Object> updateBook(@RequestBody Book book) {
-		Book bk = service.updateBook(book);
-
-		if (bk == null) {
+		if (imageBook == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 		}
 
-		SuccessMessage response = new SuccessMessage(bk);
+		SuccessMessage response = new SuccessMessage(imageBook);
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/book/{id}")
-	public ResponseEntity<Object> deleteBook(@PathVariable int id) {
-		String message = service.deleteBook(id);
+	@DeleteMapping("/image_book/{id}")
+	public ResponseEntity<Object> deleteImageBook(@PathVariable int id) {
+		String message = service.deleteImageBook(id);
 		if (message == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 		}

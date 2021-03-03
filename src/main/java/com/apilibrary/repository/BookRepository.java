@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.apilibrary.model.Book;
 
-public interface BookRepositoryCustom extends JpaRepository<Book, Integer> {
+@Repository
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
 }
