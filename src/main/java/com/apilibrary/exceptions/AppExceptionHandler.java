@@ -34,7 +34,7 @@ public class AppExceptionHandler {
 		fieldErros.forEach(e -> {
 			String msg = messageSource.getMessage(e, LocaleContextHolder.getLocale());
 			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),
-					exception.getFieldError().getDefaultMessage(), msg);
+					exception.getFieldError().getField(), msg);
 			dto.add(error);
 		});
 

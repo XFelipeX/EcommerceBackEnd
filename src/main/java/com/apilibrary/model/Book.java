@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "book")
 public class Book {
 	@Id
-	@GeneratedValue
+	@GeneratedValue()
 	private int id;
 	@NotBlank
 	@NotNull
