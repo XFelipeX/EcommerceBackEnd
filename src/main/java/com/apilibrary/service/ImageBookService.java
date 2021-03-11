@@ -31,6 +31,10 @@ public class ImageBookService {
 		return "Image deleted";
 	}
 
+	public List<ImageBook> getAllImagesBook(int id) {
+		return repository.findImagesBookByBookId(id);
+	}
+
 	public ImageBook updateImageBook(ImageBook imageBook) {
 		ImageBook existingImageBook = repository.findById(imageBook.getId()).orElse(null);
 		existingImageBook.setBookId(imageBook.getBookId());

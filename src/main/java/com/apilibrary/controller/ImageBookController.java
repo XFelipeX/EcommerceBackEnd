@@ -29,7 +29,7 @@ public class ImageBookController {
 	@Autowired
 	private ImageBookService service;
 
-	@PostMapping("/image_book")
+	@PostMapping("/imageBook")
 	public ResponseEntity<Object> addBook(@RequestBody @Valid ImageBook imageBook) {
 		imageBook.setImg(Base64.getDecoder().decode(imageBook.getBase().getBytes()));
 		imageBook.setBase("");
@@ -45,7 +45,7 @@ public class ImageBookController {
 		return new ResponseEntity<Object>(response, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/image_book")
+	@GetMapping("/imageBook")
 	public ResponseEntity<Object> listBooks() {
 		List<ImageBook> listImageBook = service.listImageBook();
 
@@ -57,8 +57,21 @@ public class ImageBookController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/imageBook/book/{id}")
+	public ResponseEntity<Object> listBooksImage(@PathVariable int id) {
+		List<ImageBook> listImageBook = service.getAllImagesBook(id);
 
-	@GetMapping("/image_book/{id}")
+		if (listImageBook == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(listImageBook);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/imageBook/{id}")
 	public ResponseEntity<Object> getImageBook(@PathVariable int id) throws NotFoundException {
 		ImageBook imageBook = service.getImageBookById(id);
 
@@ -73,7 +86,7 @@ public class ImageBookController {
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-	@PutMapping("/image_book")
+	@PutMapping("/imageBook")
 	public ResponseEntity<Object> updateImageBook(@RequestBody ImageBook imgBook) {
 		ImageBook imageBook = service.updateImageBook(imgBook);
 
@@ -86,7 +99,7 @@ public class ImageBookController {
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/image_book/{id}")
+	@DeleteMapping("/imageBook/{id}")
 	public ResponseEntity<Object> deleteImageBook(@PathVariable int id) {
 		String message = service.deleteImageBook(id);
 		if (message == null) {
