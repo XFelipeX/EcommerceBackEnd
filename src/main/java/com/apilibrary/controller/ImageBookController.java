@@ -47,7 +47,20 @@ public class ImageBookController {
 
 	@GetMapping("/image_book")
 	public ResponseEntity<Object> listBooks() {
-		List<ImageBook> listImageBook = service.listImageBook();
+		Iterable<ImageBook> listImageBook = service.listImageBook();
+
+		if (listImageBook == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(listImageBook);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/imageBook/book/{id}")
+	public ResponseEntity<Object> listBooksImage(@PathVariable int id) {
+		List<ImageBook> listImageBook = service.getAllImagesBook(id);
 
 		if (listImageBook == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);

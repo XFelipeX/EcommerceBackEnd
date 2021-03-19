@@ -24,11 +24,19 @@ public class ImageBookService {
 	public ImageBook getImageBookById(int id) {
 		return repository.findById(id).orElse(null);
 	}
+	
+	public ImageBook getMainImageBookById(int id) {
+		return repository.findImageBookByBookIdAndMain(id);
+	}
 
 	public String deleteImageBook(int id) {
 		repository.deleteById(id);
 
 		return "Image deleted";
+	}
+	
+	public List<ImageBook> getAllImagesBook(int id) {
+		return repository.findImagesBookByBookId(id);
 	}
 
 	public ImageBook updateImageBook(ImageBook imageBook) {
