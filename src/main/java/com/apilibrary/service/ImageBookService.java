@@ -39,6 +39,10 @@ public class ImageBookService {
 		return repository.findImagesBookByBookId(id);
 	}
 
+	public List<ImageBook> getAllImagesBook(int id) {
+		return repository.findImagesBookByBookId(id);
+	}
+
 	public ImageBook updateImageBook(ImageBook imageBook) {
 		ImageBook existingImageBook = repository.findById(imageBook.getId()).orElse(null);
 		existingImageBook.setBookId(imageBook.getBookId());
