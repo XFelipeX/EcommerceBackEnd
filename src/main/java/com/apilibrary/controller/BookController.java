@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,11 +29,11 @@ import javassist.NotFoundException;
 public class BookController {
 
 	@Autowired
-	private BookService service;
+	private BookService serviceBook;
 
 	@PostMapping("/book")
 	public ResponseEntity<Object> addBook(@RequestBody @Valid Book book) {
-		Book bk = service.saveBook(book);
+		Book bk = serviceBook.saveBook(book);
 
 		if (bk == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
@@ -43,21 +45,23 @@ public class BookController {
 	}
 
 	@GetMapping("/book")
-	public ResponseEntity<Object> listBooks() {
-		List<Book> books = service.listBooks();
+	public Page<Book> listBooks(Pageable pageable) {
+//		List<Book> books = service.listBooks();
+		
+		return serviceBook.listBooks(pageable);
 
-		if (books == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
-		}
-
-		SuccessMessage response = new SuccessMessage(books);
-
-		return new ResponseEntity<Object>(response, HttpStatus.OK);
+//		if (books == null) {
+//			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+//		}
+//
+//		SuccessMessage response = new SuccessMessage(books);
+//
+//		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/book/{id}")
 	public ResponseEntity<Object> getBook(@PathVariable int id) throws NotFoundException {
-		Book book = service.getBookById(id);
+		Book book = serviceBook.getBookById(id);
 
 		if (book == null) {
 			throw new NotFoundException("Not found for id " + id);
@@ -75,7 +79,7 @@ public class BookController {
 
 	@PutMapping("/book")
 	public ResponseEntity<Object> updateBook(@RequestBody Book book) {
-		Book bk = service.updateBook(book);
+		Book bk = serviceBook.updateBook(book);
 
 		if (bk == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
@@ -88,7 +92,7 @@ public class BookController {
 
 	@DeleteMapping("/book/{id}")
 	public ResponseEntity<Object> deleteBook(@PathVariable int id) {
-		String message = service.deleteBook(id);
+		String message = serviceBook.deleteBook(id);
 		if (message == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 		}
