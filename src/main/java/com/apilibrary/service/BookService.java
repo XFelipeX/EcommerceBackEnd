@@ -3,6 +3,8 @@ package com.apilibrary.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.apilibrary.model.Book;
@@ -17,8 +19,8 @@ public class BookService {
 		return repository.save(book);
 	}
 
-	public List<Book> listBooks() {
-		return repository.findAll();
+	public Page<Book> listBooks(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	public Book getBookById(int id) {
