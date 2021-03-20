@@ -70,6 +70,19 @@ public class ImageBookController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/imageBook/book/main/{id}")
+	public ResponseEntity<Object> imageBookMain(@PathVariable int id) {
+		ImageBook imageBook = service.getMainImageBookById(id);
+
+		if (imageBook == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(imageBook);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
 
 	@GetMapping("/imageBook/{id}")
 	public ResponseEntity<Object> getImageBook(@PathVariable int id) throws NotFoundException {
