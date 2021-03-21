@@ -1,5 +1,7 @@
 package com.apilibrary.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +19,12 @@ public class AuthorService {
 		return repository.save(author);
 	}
 	
-	public Page<Author> listAuthors(Pageable pageable){
-		return repository.findAll(pageable);
+//	public Page<Author> listAuthors(Pageable pageable){
+//		return repository.findAll(pageable);
+//	}
+	
+	public List<Author> listAuthors(){
+		return repository.findAll();
 	}
 	
 	public Author getAuthorById(int id) {
