@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Author;
+import com.apilibrary.model.ImageBook;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.AuthorService;
 
@@ -26,8 +27,17 @@ public class AuthorController {
 	private AuthorService serviceAuthor;
 
 	@GetMapping("/author")
-	public List<Author> listAuthors() {
-		return serviceAuthor.listAuthors();
+	public ResponseEntity<Object> listAuthors() {
+		
+		List<Author> listAuthors = serviceAuthor.listAuthors();
+
+		if (listAuthors == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(listAuthors);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 //	@GetMapping("/author")

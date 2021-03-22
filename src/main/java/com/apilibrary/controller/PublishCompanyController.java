@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apilibrary.model.Author;
 import com.apilibrary.model.PublishCompany;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.PublishCompanyService;
@@ -24,8 +25,17 @@ public class PublishCompanyController {
 	private PublishCompanyService servicePublishCompany;
 
 	@GetMapping("/publishCompany")
-	public List<PublishCompany> listPublishCompanys(){
-		return servicePublishCompany.listPublishCompanys();
+	public ResponseEntity<Object> listPublishCompanys(){
+		
+		List<PublishCompany> listPublishCompanies = servicePublishCompany.listPublishCompanys();
+
+		if (listPublishCompanies == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}	
+
+		SuccessMessage response = new SuccessMessage(listPublishCompanies);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/publishCompany/{id}")
