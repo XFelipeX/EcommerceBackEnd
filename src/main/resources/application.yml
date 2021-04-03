@@ -7,3 +7,4 @@ spring:
   jpa:    show-sql: true
     hibernate:      ddl-auto: update
     spring.jpa.properties.hibernate: org.hibernate.dialect.MySQLDialect
+    console: true

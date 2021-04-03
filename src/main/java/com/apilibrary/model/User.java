@@ -9,6 +9,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class User {
 	@NotNull @NotBlank
 	private String userName;
 	@NotNull @NotBlank
+	@JsonIgnore
 	private String userPassword;
 	@Min(0) @Max(2)
 	private int typeAccount;

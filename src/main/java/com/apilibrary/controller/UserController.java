@@ -61,7 +61,7 @@ public class UserController {
 	}
 
 	@PutMapping("/user")
-	public ResponseEntity<Object> updateBook(@RequestBody User user) {
+	public ResponseEntity<Object> updateUser(@RequestBody User user) {
 		User responseUser = serviceUser.updateUser(user);
 
 		if (responseUser == null) {
@@ -74,7 +74,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<Object> deleteBook(@PathVariable int id) {
+	public ResponseEntity<Object> deleteUser(@PathVariable int id) {
 		String message = serviceUser.deleteUser(id);
 		if (message == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
