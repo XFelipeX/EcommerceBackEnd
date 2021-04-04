@@ -42,6 +42,7 @@ public class UserService {
 		existingUser.setUserPassword(encode.encode(user.getUserPassword()));
 		existingUser.setTypeAccount(user.getTypeAccount());
 		existingUser.setUserName(user.getUserName());
+		existingUser.setStatus(user.getStatus());
 
 		return repository.save(existingUser);
 	}

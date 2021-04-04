@@ -9,6 +9,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
@@ -28,12 +30,14 @@ public class User {
 	private int id;
 	@NotNull @NotBlank
 	private String email;
-	@NotNull @NotBlank
+	@NotNull @NotBlank @Length(min = 5)
 	private String userName;
 	@NotNull @NotBlank
-	@JsonIgnore
+	@JsonIgnore @Length(min = 3)
 	private String userPassword;
 	@Min(0) @Max(2)
 	private int typeAccount;
+	@Min(0) @Max(1)
+	private int status;
 	private int accountId;
 }

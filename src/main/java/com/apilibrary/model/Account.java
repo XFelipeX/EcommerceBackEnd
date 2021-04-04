@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +26,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull 
-	@NotBlank
+	@NotBlank @Length(min = 5)
 	private String userName;
 	@NotNull 
 	@NotBlank
