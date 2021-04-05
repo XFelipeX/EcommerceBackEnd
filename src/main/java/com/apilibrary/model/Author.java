@@ -29,5 +29,5 @@ public class Author {
 	private String nameAuthor;
 	@NotBlank
 	@NotNull
-	private long cpf;
+	private String cpfCnpj;
 }

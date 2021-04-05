@@ -39,7 +39,7 @@ public class AuthorService {
 	public Author updateAuthor(Author author) {
 		Author existingAuthor = repository.findById(author.getId()).orElse(null);
 		existingAuthor.setNameAuthor(author.getNameAuthor());
-		existingAuthor.setCpf(author.getCpf());
+		existingAuthor.setCpfCnpj(author.getCpfCnpj());;
 		
 		return repository.save(existingAuthor);
 	}
