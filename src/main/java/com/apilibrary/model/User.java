@@ -33,7 +33,7 @@ public class User {
 	@NotNull @NotBlank @Length(min = 5)
 	private String userName;
 	@NotNull @NotBlank
-	@JsonIgnore @Length(min = 3)
+	@Length(min = 3)
 	private String userPassword;
 	@Min(0) @Max(2)
 	private int typeAccount;

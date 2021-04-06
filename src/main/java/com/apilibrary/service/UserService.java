@@ -43,7 +43,8 @@ public class UserService {
 		existingUser.setTypeAccount(user.getTypeAccount());
 		existingUser.setUserName(user.getUserName());
 		existingUser.setStatus(user.getStatus());
-
+		existingUser.setAccountId(user.getAccountId());
+		
 		return repository.save(existingUser);
 	}
 }
