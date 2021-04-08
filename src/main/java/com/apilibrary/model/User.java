@@ -28,16 +28,22 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotNull @NotBlank
+	@NotNull
+	@NotBlank
 	private String email;
-	@NotNull @NotBlank @Length(min = 5)
+	@NotNull
+	@NotBlank
+	@Length(min = 5)
 	private String userName;
-	@NotNull @NotBlank
 	@Length(min = 3)
+	@NotNull
+	@NotBlank
 	private String userPassword;
-	@Min(0) @Max(2)
+	@Min(0)
+	@Max(2)
 	private int typeAccount;
-	@Min(0) @Max(1)
+	@Min(0)
+	@Max(1)
 	private int status;
 	private int accountId;
 }

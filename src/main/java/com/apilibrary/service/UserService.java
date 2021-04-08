@@ -29,11 +29,21 @@ public class UserService {
 	public User getUserById(int id) {
 		return repository.findById(id).orElse(null);
 	}
+	
+	public User getUserByAccount(int id) {
+		return repository.findUserByAccountId(id);
+	}
+
+	public User getUserByEmail(String email) {
+		return repository.findUserByEmail(email);
+	}
 
 	public String deleteUser(int id) {
 		repository.deleteById(id);
 		return "user deleted";
 	}
+	
+	
 
 	public User updateUser(User user) {
 		encode = new BCryptPasswordEncoder();
@@ -44,6 +54,17 @@ public class UserService {
 		existingUser.setUserName(user.getUserName());
 		existingUser.setStatus(user.getStatus());
 		existingUser.setAccountId(user.getAccountId());
+		
+		return repository.save(existingUser);
+	}
+
+	public User updateStatus(int id) {
+		User existingUser = repository.findUserByAccountId(id);
+
+		if (existingUser.getStatus() == 1)
+			existingUser.setStatus(0);
+		else
+			existingUser.setStatus(1);
 		
 		return repository.save(existingUser);
 	}

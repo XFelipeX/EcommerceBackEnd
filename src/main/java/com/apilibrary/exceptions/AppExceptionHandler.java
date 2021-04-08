@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 import com.apilibrary.response.ErrorMessage;
 
 import javassist.NotFoundException;
@@ -58,5 +60,14 @@ public class AppExceptionHandler {
 
 		return error;
 	}
+	
+//	@ResponseStatus(code = HttpStatus.FORBIDDEN)
+//	@ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class )
+//	public ErrorMessage handle(io.jsonwebtoken.ExpiredJwtException exception) {
+//
+//		ErrorMessage error = new ErrorMessage(new GregorianCalendar(), exception.getMessage(), "Session is expired");
+//
+//		return error;
+//	}
 
 }

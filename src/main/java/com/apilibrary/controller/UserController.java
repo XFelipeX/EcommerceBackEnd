@@ -2,6 +2,8 @@ package com.apilibrary.controller;
 
 import javax.validation.Valid;
 
+import java.util.GregorianCalendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,8 @@ import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.UserService;
 
 import javassist.NotFoundException;
+
+import com.apilibrary.response.ErrorMessage;
 
 @CrossOrigin
 @RestController
@@ -49,10 +53,26 @@ public class UserController {
 
 	@GetMapping("/user/{id}")
 	public ResponseEntity<Object> getUser(@PathVariable int id) throws NotFoundException {
-		User user = serviceUser.getUserById(id);
+		// get user by account id
+		User user = serviceUser.getUserByAccount(id);
 
 		if (user == null) {
 			throw new NotFoundException("Not found for id " + id);
+		}
+
+		SuccessMessage response = new SuccessMessage(user);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/email/{email}")
+	public ResponseEntity<Object> getUserByEmail(@PathVariable String email) throws NotFoundException {
+		// get user by email
+		User user = serviceUser.getUserByEmail(email);
+
+		if (user == null) {
+			ErrorMessage errorMessage = new ErrorMessage(new GregorianCalendar(),"","Email not found");
+			return new ResponseEntity<Object>(errorMessage, HttpStatus.OK);
 		}
 
 		SuccessMessage response = new SuccessMessage(user);
@@ -63,6 +83,19 @@ public class UserController {
 	@PutMapping("/user")
 	public ResponseEntity<Object> updateUser(@RequestBody User user) {
 		User responseUser = serviceUser.updateUser(user);
+
+		if (responseUser == null) {
+			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(responseUser);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@PutMapping("/user/status/{id}")
+	public ResponseEntity<Object> updateStatus(@PathVariable int id) {
+		User responseUser = serviceUser.updateStatus(id);
 
 		if (responseUser == null) {
 			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
@@ -83,4 +116,6 @@ public class UserController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	
 }
