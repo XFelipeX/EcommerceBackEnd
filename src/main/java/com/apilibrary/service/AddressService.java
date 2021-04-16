@@ -41,7 +41,6 @@ public class AddressService {
 		existingAddress.setType(address.getType());
 		existingAddress.setStatus(address.getStatus());
 		existingAddress.setAccountId(address.getAccountId());
-		existingAddress.setAccountUser(address.getAccountUser());
 		
 		return repository.save(existingAddress);
 	}
