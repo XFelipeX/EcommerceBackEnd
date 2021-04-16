@@ -1,6 +1,5 @@
 package com.apilibrary.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,9 +13,12 @@ import com.apilibrary.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository repository;
+	@Autowired
+	private UserRepository userRepository;
 	private BCryptPasswordEncoder encode;
 
 	public User saveUser(User user) {
+		if(verifyExistEmail(user.getEmail())) return null;
 		encode = new BCryptPasswordEncoder();
 		user.setUserPassword(encode.encode(user.getUserPassword()));
 		return repository.save(user);
@@ -29,7 +31,7 @@ public class UserService {
 	public User getUserById(int id) {
 		return repository.findById(id).orElse(null);
 	}
-	
+
 	public User getUserByAccount(int id) {
 		return repository.findUserByAccountId(id);
 	}
@@ -42,10 +44,9 @@ public class UserService {
 		repository.deleteById(id);
 		return "user deleted";
 	}
-	
-	
 
 	public User updateUser(User user) {
+		if(verifyExistEmail(user.getEmail())) return null;
 		encode = new BCryptPasswordEncoder();
 		User existingUser = repository.findById(user.getId()).orElse(null);
 		existingUser.setEmail(user.getEmail());
@@ -54,7 +55,7 @@ public class UserService {
 		existingUser.setUserName(user.getUserName());
 		existingUser.setStatus(user.getStatus());
 		existingUser.setAccountId(user.getAccountId());
-		
+
 		return repository.save(existingUser);
 	}
 
@@ -65,7 +66,16 @@ public class UserService {
 			existingUser.setStatus(0);
 		else
 			existingUser.setStatus(1);
-		
+
 		return repository.save(existingUser);
+	}
+	
+	private boolean verifyExistEmail(String email) {
+		// verify if email exist on database
+		User userExist = userRepository.findByEmail(email);
+		if (userExist != null)
+			return true;
+		else
+			return false;
 	}
 }

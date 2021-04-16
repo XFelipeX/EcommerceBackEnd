@@ -37,7 +37,8 @@ public class UserController {
 		User responseUser = serviceUser.saveUser(user);
 
 		if (responseUser == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "Is not possible save user");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 		}
 
 		SuccessMessage response = new SuccessMessage(user);

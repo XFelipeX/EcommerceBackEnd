@@ -28,18 +28,12 @@ public class Account {
 	@NotNull 
 	@NotBlank @Length(min = 5)
 	private String userName;
-	@NotNull 
-	@NotBlank
 	private String lastName;
-	@NotNull 
-	@NotBlank
 	private String street;
 	private int numberIdent;
 	@NotNull 
 	@NotBlank
 	private String cpf;
-	@NotNull 
-	@NotBlank
 	private String cep;
 	
 }	

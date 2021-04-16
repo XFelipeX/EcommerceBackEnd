@@ -16,6 +16,7 @@ public class AccountService {
 	private AccountRepository repository;
 	
 	public Account saveAccount(Account account) {
+		if(verifyExistCpf(account.getCpf())) return null;
 		return repository.save(account);
 	}
 	
@@ -33,6 +34,7 @@ public class AccountService {
 	}
 	
 	public Account updateAccount(Account account) {
+		if(verifyExistCpf(account.getCpf())) return null;
 		Account existingAccount = repository.findById(account.getId()).orElse(null);
 		existingAccount.setUserName(account.getUserName());
 		existingAccount.setLastName(account.getLastName());
@@ -42,5 +44,14 @@ public class AccountService {
 		existingAccount.setCpf(account.getCpf());
 		
 		return repository.save(existingAccount);
+	}
+	
+	private boolean verifyExistCpf(String cpf) {
+		// verify if cpf exist on database
+		Account userExist = repository.findAccountByCpf(cpf);
+		if (userExist != null)
+			return true;
+		else
+			return false;
 	}
 }
