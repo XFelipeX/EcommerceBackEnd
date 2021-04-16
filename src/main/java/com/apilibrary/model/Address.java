@@ -40,5 +40,4 @@ public class Address {
 	private int status;
 	@NotNull @NotBlank
 	private int accountId;
-	private int accountUser;
 }
