@@ -9,8 +9,8 @@ import com.apilibrary.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	User findByEmail(String email);
-	
-	User findUserByAccountId(@Param("id") int id);
+	@Query("SELECT i FROM User i where i.accountId =:id and i.typeAccount != 2")
+	User findUserByAccountIdAndTypeAccount(@Param("id") int id);
 
 	User findUserByEmail(@Param("email") String email);
 

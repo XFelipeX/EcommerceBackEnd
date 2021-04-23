@@ -33,7 +33,7 @@ public class UserService {
 	}
 
 	public User getUserByAccount(int id) {
-		return repository.findUserByAccountId(id);
+		return repository.findUserByAccountIdAndTypeAccount(id);
 	}
 
 	public User getUserByEmail(String email) {
@@ -60,7 +60,7 @@ public class UserService {
 	}
 
 	public User updateStatus(int id) {
-		User existingUser = repository.findUserByAccountId(id);
+		User existingUser = repository.findUserByAccountIdAndTypeAccount(id);
 
 		if (existingUser.getStatus() == 1)
 			existingUser.setStatus(0);
