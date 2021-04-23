@@ -1,5 +1,6 @@
 package com.apilibrary.controller;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Address;
+import com.apilibrary.response.ErrorMessage;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.AddressService;
 
@@ -60,7 +62,8 @@ public class AddressController {
 		Address ad = serviceAddress.saveAddress(address);
 
 		if (ad == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "has a error on create address");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 		}
 
 		SuccessMessage response = new SuccessMessage(ad);

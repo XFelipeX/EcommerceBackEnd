@@ -29,15 +29,12 @@ public class Address {
 	private String cep;
 	@NotNull @NotBlank
 	private String uf;
-	@NotNull @NotBlank
 	private int number;
 	@NotNull @NotBlank
 	private String local;
 	private String complement;
 	@NotNull @NotBlank
 	private String type;
-	@NotNull @NotBlank
 	private int status;
-	@NotNull @NotBlank
 	private int accountId;
 }
