@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Address;
@@ -42,27 +43,31 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
 
 	@GetMapping("/address/{id}")
 	public ResponseEntity<Object> getAddress(@PathVariable int id) throws NotFoundException {
 		Address address = serviceAddress.getAddressById(id);
-		
-		if(address == null) {
-			throw new NotFoundException("Not found for id " + id);		
+
+		if (address == null) {
+			throw new NotFoundException("Not found for id " + id);
 		}
-		
+
 		SuccessMessage response = new SuccessMessage(address);
-		
+
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/address")
-	public ResponseEntity<Object> addAddress(@RequestBody @Valid Address address) {
-		Address ad = serviceAddress.saveAddress(address);
+	public ResponseEntity<Object> addAddress(@RequestBody @Valid Address address, @RequestParam int typeAccount) {
+		if (typeAccount != 2) {
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(), "", "typeAccout is broken");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
+
+		}
+		Address ad = serviceAddress.saveAddress(address, typeAccount);
 
 		if (ad == null) {
-			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "has a error on create address");
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(), "", "has a error on create address");
 			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 		}
 
@@ -70,9 +75,7 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.CREATED);
 	}
-	
-	
-	
+
 	@PutMapping("/address")
 	public ResponseEntity<Object> updateAddress(@RequestBody Address address) {
 		Address ad = serviceAddress.updateAddress(address);
@@ -85,7 +88,6 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
 
 	@DeleteMapping("/address/{id}")
 	public ResponseEntity<Object> deleteAddress(@PathVariable int id) {
@@ -97,5 +99,5 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 }

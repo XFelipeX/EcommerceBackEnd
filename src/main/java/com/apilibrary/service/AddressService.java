@@ -13,8 +13,8 @@ public class AddressService {
 	@Autowired
 	private AddressRepository repository;
 
-	public Address saveAddress(Address address) {
-		if (verifyTypeAccount(address.getAccountId())
+	public Address saveAddress(Address address,int typeAccount) {
+		if (verifyTypeAccount(typeAccount)
 				&& (address.getType().equals("C") || address.getType().equals("F"))) {
 			verifyIfExistAddressActive(address.getType(), address.getStatus());
 			return repository.save(address);

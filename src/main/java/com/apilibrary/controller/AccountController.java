@@ -1,5 +1,7 @@
 package com.apilibrary.controller;
 
+import java.util.GregorianCalendar;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Account;
+import com.apilibrary.response.ErrorMessage;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.AccountService;
 
@@ -33,7 +36,8 @@ public class AccountController {
 		Account responseAccount = serviceAccount.saveAccount(account);
 
 		if (responseAccount == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "(email,cpf) is broken");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 		}
 
 		SuccessMessage response = new SuccessMessage(responseAccount);
