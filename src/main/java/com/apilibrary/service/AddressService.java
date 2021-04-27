@@ -29,6 +29,10 @@ public class AddressService {
 	public Address getAddressById(int id) {
 		return repository.findById(id).orElse(null);
 	}
+	
+	public List<Address> getAddressByStatusAndAccountId(int id) {
+		return repository.findAddressByStatusAndAccountId(id);
+	}
 
 	public String deleteAddress(int id) {
 		repository.deleteById(id);

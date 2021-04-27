@@ -56,6 +56,24 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/address/active/{id}")
+	public ResponseEntity<Object> getAddressByStatusAndAccountId(@PathVariable int id) throws NotFoundException {
+		List<Address> address = serviceAddress.getAddressByStatusAndAccountId(id);
+
+		if (address == null) {
+			throw new NotFoundException("Not found for Account Id " + id);
+		}
+		
+		if(address.isEmpty()) {
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "No data");
+			return new ResponseEntity<Object>(error, HttpStatus.NOT_FOUND);
+		}
+
+		SuccessMessage response = new SuccessMessage(address);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
 
 	@PostMapping("/address")
 	public ResponseEntity<Object> addAddress(@RequestBody @Valid Address address, @RequestParam int typeAccount) {

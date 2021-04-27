@@ -21,7 +21,7 @@ public class AccountService {
 	}
 	
 	public Page<Account> listAllAccounts(Pageable pageable){
-		return repository.findAll(pageable);
+		return repository.findAccountByCep(pageable);
 	}
 	
 	public Account getAccountById(int id) {
