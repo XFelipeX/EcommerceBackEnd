@@ -34,7 +34,6 @@ public class AccountService {
 	}
 	
 	public Account updateAccount(Account account) {
-		if(verifyExistCpf(account.getCpf())) return null;
 		Account existingAccount = repository.findById(account.getId()).orElse(null);
 		existingAccount.setUserName(account.getUserName());
 		existingAccount.setLastName(account.getLastName());

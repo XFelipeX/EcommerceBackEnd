@@ -70,7 +70,8 @@ public class AccountController {
 		Account responseAccount = serviceAccount.updateAccount(account);
 
 		if (responseAccount == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "account is broken");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 		}
 
 		SuccessMessage response = new SuccessMessage(responseAccount);
