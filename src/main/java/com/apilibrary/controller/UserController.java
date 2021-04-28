@@ -86,7 +86,8 @@ public class UserController {
 		User responseUser = serviceUser.updateUser(user);
 
 		if (responseUser == null) {
-			return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+			ErrorMessage errorMessage = new ErrorMessage(new GregorianCalendar(),"","User is broken");
+			return new ResponseEntity<Object>(errorMessage, HttpStatus.BAD_REQUEST);
 		}
 
 		SuccessMessage response = new SuccessMessage(responseUser);

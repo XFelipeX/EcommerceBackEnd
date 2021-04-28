@@ -46,7 +46,6 @@ public class UserService {
 	}
 
 	public User updateUser(User user) {
-		if(verifyExistEmail(user.getEmail())) return null;
 		encode = new BCryptPasswordEncoder();
 		User existingUser = repository.findById(user.getId()).orElse(null);
 		existingUser.setEmail(user.getEmail());
