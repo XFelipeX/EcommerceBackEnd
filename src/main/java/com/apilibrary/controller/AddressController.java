@@ -74,11 +74,29 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/address/account/{id}")
+	public ResponseEntity<Object> getAddressByAccountId(@PathVariable int id,@RequestParam("type") String type) throws NotFoundException {
+		List<Address> address = serviceAddress.getAddressByAccountId(id, type);
+
+		if (address == null) {
+			throw new NotFoundException("Not found for Account Id " + id);
+		}
+		
+		if(address.isEmpty()) {
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(),"", "No data");
+			return new ResponseEntity<Object>(error, HttpStatus.NOT_FOUND);
+		}
+
+		SuccessMessage response = new SuccessMessage(address);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
 
 	@PostMapping("/address")
 	public ResponseEntity<Object> addAddress(@RequestBody @Valid Address address, @RequestParam int typeAccount) {
 		if (typeAccount != 2) {
-			ErrorMessage error = new ErrorMessage(new GregorianCalendar(), "", "typeAccout is broken");
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(), "", "typeAccount is broken");
 			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 
 		}

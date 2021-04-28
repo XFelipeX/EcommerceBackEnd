@@ -33,6 +33,10 @@ public class AddressService {
 	public List<Address> getAddressByStatusAndAccountId(int id) {
 		return repository.findAddressByStatusAndAccountId(id);
 	}
+	
+	public List<Address> getAddressByAccountId(int id, String type) {
+		return repository.findAddresByAccoountId(id,type);
+	}
 
 	public String deleteAddress(int id) {
 		repository.deleteById(id);
