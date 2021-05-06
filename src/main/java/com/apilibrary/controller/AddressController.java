@@ -92,6 +92,20 @@ public class AddressController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/address/account/delivery/{id}")
+	public ResponseEntity<Object> getAddressByAccountId(@PathVariable int id) throws NotFoundException {
+		Address address = serviceAddress.getAddressByStatusAndTypeC(id);
+
+		if (address == null) {
+			ErrorMessage error = new ErrorMessage(new GregorianCalendar(), "", "Not found for Account Id");
+			return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
+		}
+
+		SuccessMessage response = new SuccessMessage(address);
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
 
 	@PostMapping("/address")
 	public ResponseEntity<Object> addAddress(@RequestBody @Valid Address address, @RequestParam int typeAccount) {
