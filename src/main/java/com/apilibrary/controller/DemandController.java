@@ -7,12 +7,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Demand;
 import com.apilibrary.response.SuccessMessage;
@@ -20,6 +23,8 @@ import com.apilibrary.service.DemandService;
 
 import javassist.NotFoundException;
 
+@CrossOrigin
+@RestController
 public class DemandController {
 	
 	@Autowired
@@ -39,14 +44,14 @@ public class DemandController {
 	}
 	
 	@GetMapping("/demand")
-	public Page<Demand> listDemands(Pageable pageble) {
+	public Page<Demand> listDemands(Pageable pageable) {
 		
-		return serviceDemand.listDemands(pageble);
+		return serviceDemand.listDemands(pageable);
 	}
 	
 	@GetMapping("/demand/{id}")
 	public ResponseEntity<Object> getDemand(@PathVariable int id) throws NotFoundException {
-		Demand dm = serviceDemand.getDemandId(id);
+		Demand dm = serviceDemand.getDemandById(id);
 		
 		if (dm == null) {
 			throw new NotFoundException("Not found for id" + id);
@@ -70,6 +75,7 @@ public class DemandController {
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/demand/{id}")
 	public ResponseEntity<Object> deleteDemand(@PathVariable int id) {
 		String message = serviceDemand.deleteDemand(id);
 		
