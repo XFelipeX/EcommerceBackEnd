@@ -21,7 +21,7 @@ public class DemandService {
 		return repository.findAll(pageable);
 	}
 	
-	public Demand getDemandId(int id) {
+	public Demand getDemandById(int id) {
 		return repository.findById(id).orElse(null);
 	}
 	
