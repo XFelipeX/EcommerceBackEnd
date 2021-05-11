@@ -29,12 +29,11 @@ public class Demand {
 	@NotNull
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Timestamp date;
+	@NotNull @NotBlank
 	private String status;
 	@NotNull @NotBlank
 	private String payment;
-	@NotNull @NotBlank
 	private double shipping;
-	@NotNull @NotBlank
 	private double total;
 	private int accountId;
 	private int addressId;
