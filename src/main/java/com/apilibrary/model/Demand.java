@@ -1,6 +1,8 @@
 package com.apilibrary.model;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDate;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +30,7 @@ public class Demand {
 	private int id;
 	@NotNull
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Timestamp date;
+	private LocalDate date;
 	@NotNull @NotBlank
 	private String status;
 	@NotNull @NotBlank
