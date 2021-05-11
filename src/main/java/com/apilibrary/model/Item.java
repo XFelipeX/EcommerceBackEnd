@@ -23,7 +23,6 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotNull @NotBlank
 	private int amount;
 	private int bookId;
 	private int demandId;
