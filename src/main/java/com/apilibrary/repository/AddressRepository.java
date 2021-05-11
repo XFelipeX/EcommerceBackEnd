@@ -19,4 +19,11 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 	
 	@Query("SELECT i from Address i where i.accountId =:accountId and i.type =:type")
 	List<Address> findAddresByAccoountId(@Param("accountId") int accountId,@Param("type") String type);
+	
+	// Address of delivery active
+	@Query("SELECT i from Address i where i.accountId =:accountId and i.type = 'C' and i.status = 1")
+	 Address findAddresByAccoountIdAndTypeAndStatus(@Param("accountId") int accountId);
+	
+	@Query("SELECT i from Address i where i.accountId =:accountId and i.type = 'C'")
+	List<Address>  findAllAddressDelivery(@Param("accountId") int accountId);
 }

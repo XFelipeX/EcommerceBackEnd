@@ -69,6 +69,16 @@ public class AddressService {
 		}
 
 	}
+	
+	public Address getAddressByStatusAndTypeC(int id) {
+		return repository.findAddresByAccoountIdAndTypeAndStatus(id);
+		
+	}
+	
+	public List<Address> getAllAddressDelivery(int id) {
+		return repository.findAllAddressDelivery(id);
+		
+	}
 
 	private boolean verifyTypeAccount(int accountId) {
 		if (accountId != 2)
