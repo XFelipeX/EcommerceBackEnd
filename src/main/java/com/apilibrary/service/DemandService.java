@@ -1,5 +1,7 @@
 package com.apilibrary.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,10 @@ public class DemandService {
 	
 	public Demand getDemandById(int id) {
 		return repository.findById(id).orElse(null);
+	}
+	
+	public List<Demand> getDemandByAccountId(int id) {
+		return repository.findDemandByAccountId(id);
 	}
 	
 	public String deleteDemand(int id) {

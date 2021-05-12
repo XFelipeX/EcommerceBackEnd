@@ -1,5 +1,7 @@
 package com.apilibrary.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,19 @@ public class DemandController {
 	@GetMapping("/demand/{id}")
 	public ResponseEntity<Object> getDemand(@PathVariable int id) throws NotFoundException {
 		Demand dm = serviceDemand.getDemandById(id);
+		
+		if (dm == null) {
+			throw new NotFoundException("Not found for id" + id);
+		}
+		
+		SuccessMessage response = new SuccessMessage(dm);
+		
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/demand/account/{id}")
+	public ResponseEntity<Object> getDemandByAccount(@PathVariable int id) throws NotFoundException {
+		List<Demand>dm = serviceDemand.getDemandByAccountId(id);
 		
 		if (dm == null) {
 			throw new NotFoundException("Not found for id" + id);
