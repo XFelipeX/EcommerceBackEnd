@@ -1,5 +1,7 @@
 package com.apilibrary.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,19 @@ public class ItemController {
 		}
 		
 		SuccessMessage response = new SuccessMessage(it);
+		
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/item/all/{id}")
+	public ResponseEntity<Object> getItemByDemand(@PathVariable int id) throws NotFoundException {
+		List<Item>dm = serviceItem.getItemByDemand(id);
+		
+		if (dm == null) {
+			throw new NotFoundException("Not found for id" + id);
+		}
+		
+		SuccessMessage response = new SuccessMessage(dm);
 		
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}

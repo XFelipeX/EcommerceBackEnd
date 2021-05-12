@@ -1,10 +1,13 @@
 package com.apilibrary.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.apilibrary.model.Demand;
 import com.apilibrary.model.Item;
 import com.apilibrary.repository.ItemRepository;
 
@@ -23,6 +26,10 @@ public class ItemService {
 	
 	public Item getItemById(int id) {
 		return repository.findById(id).orElse(null);
+	}
+	
+	public List<Item> getItemByDemand(int id) {
+		return repository.findItemByDemandId(id);
 	}
 	
 	public String deleteItem(int id) {
