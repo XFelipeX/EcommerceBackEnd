@@ -20,7 +20,11 @@ public class BookService {
 	}
 
 	public Page<Book> listBooks(Pageable pageable) {
-		return repository.findAll(pageable);
+		return repository.findAllByOrderByIdDesc(pageable);
+	}
+	
+	public Page<Book> listBooksClient(Pageable pageable) {
+		return repository.findAllByAvailable(pageable,1);
 	}
 
 	public Book getBookById(int id) {

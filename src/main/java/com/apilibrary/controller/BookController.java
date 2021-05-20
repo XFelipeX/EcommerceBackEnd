@@ -33,7 +33,7 @@ public class BookController {
 
 	@Autowired
 	private BookService serviceBook;
-	
+
 	@PostMapping("/book")
 	public ResponseEntity<Object> addBook(@RequestBody @Valid Book book) {
 		Book bk = serviceBook.saveBook(book);
@@ -49,7 +49,7 @@ public class BookController {
 
 	@GetMapping("/book")
 	public Page<Book> listBooks(Pageable pageable) {
-		
+
 		return serviceBook.listBooks(pageable);
 //		List<Book> books = service.listBooks();
 //
@@ -60,6 +60,13 @@ public class BookController {
 //		SuccessMessage response = new SuccessMessage(books);
 //
 //		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/book/view/client")
+	public Page<Book> listBooksClient(Pageable pageable) {
+
+		return serviceBook.listBooksClient(pageable);
+
 	}
 
 	@GetMapping("/book/{id}")
