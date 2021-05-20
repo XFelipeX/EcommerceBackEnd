@@ -12,6 +12,6 @@ import com.apilibrary.model.Demand;
 @Repository
 public interface DemandRepository extends JpaRepository<Demand, Integer> {
 	
-	@Query("SELECT i FROM Demand i WHERE i.accountId =:id ORDER BY i.date DESC")
+	@Query("SELECT i FROM Demand i WHERE i.accountId =:id ORDER BY i.id DESC")
 	List<Demand> findDemandByAccountId(@Param("id") int id);
 }
