@@ -42,7 +42,7 @@ public class ItemService {
 		existingItem.setAmount(item.getAmount());
 		existingItem.setBookId(item.getBookId());
 		existingItem.setDemandId(item.getDemandId());
-		
+		existingItem.setPrice(item.getPrice());
 		return repository.save(existingItem);
 	}
 }

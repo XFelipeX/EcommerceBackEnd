@@ -26,6 +26,7 @@ public class Item {
 	private int amount;
 	private int bookId;
 	private int demandId;
+	private float price;
 
 }
 
