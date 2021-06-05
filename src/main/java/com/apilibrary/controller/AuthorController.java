@@ -3,8 +3,6 @@ package com.apilibrary.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apilibrary.model.Author;
-import com.apilibrary.model.ImageBook;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.AuthorService;
 
@@ -28,7 +25,7 @@ public class AuthorController {
 
 	@GetMapping("/author")
 	public ResponseEntity<Object> listAuthors() {
-		
+
 		List<Author> listAuthors = serviceAuthor.listAuthors();
 
 		if (listAuthors == null) {
@@ -39,12 +36,6 @@ public class AuthorController {
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-
-//	@GetMapping("/author")
-//	public Page<Author> listAuthors(Pageable pageable) {
-//		
-//		return serviceAuthor.listAuthors(pageable);
-//	}
 
 	@GetMapping("/author/{id}")
 	public ResponseEntity<Object> getAuthor(@PathVariable int id) throws NotFoundException {

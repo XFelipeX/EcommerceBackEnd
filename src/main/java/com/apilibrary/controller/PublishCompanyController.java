@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apilibrary.model.Author;
 import com.apilibrary.model.PublishCompany;
 import com.apilibrary.response.SuccessMessage;
 import com.apilibrary.service.PublishCompanyService;

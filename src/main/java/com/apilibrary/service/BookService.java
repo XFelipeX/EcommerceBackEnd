@@ -1,6 +1,5 @@
 package com.apilibrary.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,9 +30,6 @@ public class BookService {
 		return repository.findById(id).orElse(null);
 	}
 
-//	public Book getBookByName(String nameBook) {
-//		return repositoryImp.findByName(nameBook);
-//	}
 
 	public String deleteBook(int id) {
 		repository.deleteById(id);

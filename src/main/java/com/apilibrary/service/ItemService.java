@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.apilibrary.model.Demand;
 import com.apilibrary.model.Item;
 import com.apilibrary.repository.ItemRepository;
 
